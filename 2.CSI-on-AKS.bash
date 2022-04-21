@@ -33,7 +33,6 @@ az keyvault certificate import --vault-name $AKV_NAME -n $CERT_NAME -f $CERT_NAM
 
 # Deploy a SecretProviderClass
 ##############################
-kubectl create ns $NS_NAME
 
 # Use pod identities
 ####################
@@ -95,8 +94,8 @@ kubectl get pods
 kubectl apply -f csi-front-pod.yaml
 
 ## Check app runing
-#kubectl logs azure-frontend --follow --namespace $POD_IDENTITY_NAMESPACE
+kubectl logs azure-frontend --follow --namespace $NS_NAME
 
+kubectl exec azure-frontend -n $NS_NAME -- ls /mnt/secrets-store/
 
-
-curl -X POST 'https://login.microsoftonline.com/b41b72d0-4e9f-4c26-8a69-f949f367c91d/oauth2/v2.0/token' -d 'grant_type=client_credentials&client_id="andrei krupen"&client_secret=com8Gmail&scope=https://vault.azure.net/.default'
+kubectl exec azure-frontend -n $NS_NAME -- cat /mnt/secrets-store/crt-csiname

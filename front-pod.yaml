@@ -2,6 +2,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: azure-frontend
+  namespace: ns-csitest
   labels:
     app: azure-frontend
 spec:

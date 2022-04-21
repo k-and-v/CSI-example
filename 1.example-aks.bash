@@ -18,7 +18,7 @@ az provider register --namespace Microsoft.OperationalInsights
 # Variable section:
 export RG_NAME=rg-csitest                                   # resource groupe name
 export LOC_NAME=westeurope                                  # location name
-export AKV_NAME=akv-csi5343                                 # KeyVault name
+export AKV_NAME=akv-csi533                                  # KeyVault name
 export AKS_NAME=aks-csitest                                 # AKS name
 export SUB_NAME="c20af893-07e7-4184-98c7-efaf39fe8981"      # subscription ID
 export CERT_NAME=crt-csiname                                # certificate name
@@ -45,6 +45,8 @@ kubectl get nodes
 #-> NAME                                STATUS   ROLES   AGE     VERSION
 #-> aks-nodepool1-10054480-vmss000000   Ready    agent   3m40s   v1.21.9
 
+kubectl create ns $NS_NAME
+
 # Create back-deploy.yaml
 vi back-deploy.yaml
 # <a> + copy file content in back-deploy.yaml + <ESC> + <:wq>
@@ -67,7 +69,7 @@ kubectl apply -f front-pod.yaml
 kubectl apply -f front-service.yaml
 
 # Test the application
-kubectl get service azure-frontend --watch
+kubectl get service azure-frontend -n $NS_NAME --watch
 # VIEW EXAMPLE:
 #-> NAME             TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)        AGE
 #-> azure-frontend   LoadBalancer   10.0.128.134   20.101.165.171   80:32397/TCP   56s

@@ -2,9 +2,10 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: azure-frontend
+  namespace: ns-csitest
   labels:
     app: azure-frontend
-    aadpodidbinding: csi-pod-identity
+    aadpodidbinding: csi-app-identity
 spec:
   nodeSelector:
     "kubernetes.io/os": linux
@@ -33,4 +34,4 @@ spec:
         driver: secrets-store.csi.k8s.io
         readOnly: true
         volumeAttributes:
-          secretProviderClass: "azure-kvname-system-msi"
+          secretProviderClass: "azure-podid"
