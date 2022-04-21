@@ -1,0 +1,25 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: azure-backend
+  labels:
+    app: azure-backend
+spec:
+  nodeSelector:
+    "kubernetes.io/os": linux
+  containers:
+  - name: azure-backend
+    image: mcr.microsoft.com/oss/bitnami/redis:6.0.8
+    env:
+    - name: ALLOW_EMPTY_PASSWORD
+      value: "yes"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 250m
+        memory: 256Mi
+    ports:
+    - containerPort: 6379
+      name: redis

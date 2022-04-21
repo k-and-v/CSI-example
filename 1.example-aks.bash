@@ -18,7 +18,7 @@ az provider register --namespace Microsoft.OperationalInsights
 # Variable section:
 export RG_NAME=rg-csitest                                   # resource groupe name
 export LOC_NAME=westeurope                                  # location name
-export AKV_NAME=akv-csi5243                                 # KeyVault name
+export AKV_NAME=akv-csi5343                                 # KeyVault name
 export AKS_NAME=aks-csitest                                 # AKS name
 export SUB_NAME="c20af893-07e7-4184-98c7-efaf39fe8981"      # subscription ID
 export CERT_NAME=crt-csiname                                # certificate name
@@ -60,7 +60,7 @@ vi front-service.yaml
 
 
 # Deploy the backend of application
-kubectl apply -f back-deploy.yaml
+kubectl apply -f back-pod.yaml
 kubectl apply -f back-service.yaml
 # Deploy the frontend of application
 kubectl apply -f front-pod.yaml
