@@ -1,0 +1,15 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: curl
+spec:
+  hostNetwork: true
+  containers:
+  - args:
+    - tail
+    - -f
+    - /dev/null
+    image: curlimages/curl:7.75.0
+    name: curl
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always

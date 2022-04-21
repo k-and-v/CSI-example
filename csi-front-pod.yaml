@@ -1,0 +1,36 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: azure-frontend
+  labels:
+    app: azure-frontend
+    aadpodidbinding: csi-pod-identity
+spec:
+  nodeSelector:
+    "kubernetes.io/os": linux
+  containers:
+  - name: azure-frontend
+    image: mcr.microsoft.com/azuredocs/azure-vote-front:v1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 250m
+        memory: 256Mi
+    ports:
+    - containerPort: 80
+    env:
+    - name: REDIS
+      value: "azure-backend"
+    volumeMounts:
+    - name: secrets-store01-inline
+      mountPath: "/mnt/secrets-store"
+      readOnly: true
+  volumes:
+    - name: secrets-store01-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "azure-kvname-system-msi"
