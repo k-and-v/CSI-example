@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-frontend
+  namespace: ns-csitest
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: azure-frontend
